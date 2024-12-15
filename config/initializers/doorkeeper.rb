@@ -7,7 +7,7 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
+    User.find_by(id: session[:user_id])
     # Put your resource owner authentication logic here.
     # Example implementation:
     #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
@@ -246,7 +246,8 @@ Doorkeeper.configure do
   #
   # default_scopes  :public
   # optional_scopes :write, :update
-
+  default_scopes :public
+  optional_scopes :write, :read, :admin
   # Allows to restrict only certain scopes for grant_type.
   # By default, all the scopes will be available for all the grant types.
   #
@@ -260,7 +261,7 @@ Doorkeeper.configure do
   # not in configuration, i.e. +default_scopes+ or +optional_scopes+.
   # (disabled by default)
   #
-  # enforce_configured_scopes
+  enforce_configured_scopes
 
   # Change the way client credentials are retrieved from the request object.
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
