@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "team_members" => "team_members#index"
   get "villains" => "villains#index"
 
+  post "signup" => "signups#create"
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
